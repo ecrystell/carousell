@@ -152,6 +152,7 @@ async function createBrowser() {
   const browser = await puppeteer.launch({
     headless: true,
     args: ["--no-sandbox", "--incognito"],
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   });
   context = await browser.createIncognitoBrowserContext();
   await loadPage()
