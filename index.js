@@ -158,6 +158,12 @@ async function createBrowser() {
   browser.close();
 }
 
+client.on("messageCreate", (msg) => {
+  if (msg.author.id != client.user.id) {
+    msg.channel.send(msg.content.split("").reverse().join(""));
+  }
+});
+
 
 client.login(process.env.TOKEN);
 job.start();
