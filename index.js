@@ -109,6 +109,10 @@ async function loadPage(){
         .send(json = {
             content: messages[0],
           });
+        client.channels.cache.get(process.env.TEST_ID) 
+        .send(json = {
+            content: messages[0],
+          });
         console.log("Sent: "+ messages[0])
       }
     }
