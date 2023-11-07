@@ -105,7 +105,7 @@ async function loadPage(){
         console.log(dateTime + "\t There is an update!! :)");
         messages = createListingsStr(diffListings);
         //send discord msg
-        client.channels.cache.get('813033854091788298')
+        client.channels.cache.get(process.env.CHANNEL_ID) 
         .send(json = {
             content: messages[0],
           });
@@ -165,11 +165,11 @@ async function createBrowser() {
   browser.close();
 }
 
-client.on("messageCreate", (msg) => {
-  if (msg.author.id != client.user.id) {
-    msg.channel.send(msg.content.split("").reverse().join(""));
-  }
-});
+// client.on("messageCreate", (msg) => {
+//   if (msg.author.id != client.user.id) {
+//     msg.channel.send(msg.content.split("").reverse().join(""));
+//   }
+// });
 
 
 client.login(process.env.TOKEN);
