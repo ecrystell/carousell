@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/ecrystell/carousell#readme",
   "dependencies": {
+    "cron": "^3.1.6",
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
-    "node.js": "^0.0.1-security"
+    "node": "^21.1.0",
+    "node.js": "^0.0.1-security",
+    "puppeteer": "^21.5.0"
   }
 }
