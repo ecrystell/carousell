@@ -128,12 +128,18 @@ function createListingsStr(listings) {
   var messages = [];
   listings.forEach((listing) => {
     var message = "";
-    message += "Name: " + listing.name + "\n";
-    message += "Price: " + listing.price + "\n";
-    message += "Condition: " + listing.condition + "\n";
-    message += "Seller: " + listing.seller_username + "\n";
-    message += "Link: " + listing.itemURL + "\n";
-    message += "Thumbnail: " + listing.thumbnailURL;
+    // message += "Name: " + listing.name + "\n";
+    // message += "Price: " + listing.price + "\n";
+    // message += "Condition: " + listing.condition + "\n";
+    // message += "Seller: " + listing.seller_username + "\n";
+    // message += "Link: " + listing.itemURL + "\n";
+    // message += "Thumbnail: " + listing.thumbnailURL;
+    
+    message += listing.thumbnailURL + "\n";
+    message += listing.name + "\n";
+    message += listing.price + "\n";
+    message += listing.condition + "\n";
+    message += listing.itemURL + "\n";
     messages.push(message);
   });
   //console.log(messages[0]);
