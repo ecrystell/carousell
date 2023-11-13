@@ -106,15 +106,17 @@ async function loadPage(){
         console.log(dateTime + "\t There is an update!! :)");
         messages = createListingsStr(diffListings);
         //send discord msg
-        client.channels.cache.get(process.env.CHANNEL_ID) 
-        .send(json = {
-            content: messages[0],
-          });
-        client.channels.cache.get(process.env.TEST_ID) 
-        .send(json = {
-            content: messages[0],
-          });
-        console.log("Sent: "+ messages[0])
+        for (let i=0; i++; i<messages.length) {
+          client.channels.cache.get(process.env.CHANNEL_ID) 
+          .send(json = {
+              content: messages[i],
+            });
+          client.channels.cache.get(process.env.TEST_ID) 
+          .send(json = {
+              content: messages[i],
+            });
+          console.log("Sent: "+ messages[i])
+        }
       }
     }
 
@@ -140,7 +142,7 @@ function createListingsStr(listings) {
     // message += "Link: " + listing.itemURL + "\n";
     // message += "Thumbnail: " + listing.thumbnailURL;
     
-    message += listing.thumbnailURL + "\n";
+    // message += listing.thumbnailURL + "\n";
     message += listing.name + "\n";
     message += listing.price + "\n";
     message += listing.condition + "\n";
