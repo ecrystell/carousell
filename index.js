@@ -14,7 +14,7 @@ var count = 0;
 
 
 const CronJob = require("cron").CronJob;
-const job = new CronJob("*/5 * * * *", createBrowser, false, "Asia/Singapore");
+const job = new CronJob("*/3 * * * *", createBrowser, false, "Asia/Singapore");
 
 client.on("ready", () => {
   console.log("I'm in");
@@ -144,8 +144,8 @@ function createListingsStr(listings) {
     
     // message += listing.thumbnailURL + "\n";
     message += listing.name + "\n";
-    message += listing.price + "\n";
     message += listing.condition + "\n";
+    message += listing.price + "\n";
     message += listing.itemURL + "\n";
     messages.push(message);
   });
