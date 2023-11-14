@@ -25,6 +25,7 @@ client.on("ready", () => {
 
 
 async function loadPage(){
+
   console.log("Loading page...");
   count++;
   console.log("Count: " + count);
@@ -66,6 +67,7 @@ async function loadPage(){
 
   if (data != undefined) {
     let listings = [];
+    let diffListings = [];
     console.log(data.ProfileListing.listingCards.length);
     data.ProfileListing.listingCards.forEach((element) => {
       const name = element.belowFold[0].stringContent;
