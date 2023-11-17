@@ -108,7 +108,7 @@ async function loadPage(){
         console.log(dateTime + "\t There is an update!! :)");
         messages = createListingsStr(diffListings);
         //send discord msg
-        for (let i=0; i++; i<messages.length) {
+        for (let i=0; i<diffListings.length;  i++) {
           client.channels.cache.get(process.env.CHANNEL_ID) 
           .send(json = {
               content: messages[i],
