@@ -146,7 +146,7 @@ function createListingsStr(listings) {
     
     // message += listing.thumbnailURL + "\n";
     message += listing.name + "\n";
-    message += listing.condition + "\n";
+    // message += listing.condition + "\n";
     message += listing.price + "\n";
     message += listing.itemURL + "\n";
     messages.push(message);
