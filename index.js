@@ -186,5 +186,5 @@ async function createBrowser() {
 
 client.login(process.env.TOKEN);
 job.start();
-createBrowser();
+//createBrowser();
 //createBrowser(loadPage);
