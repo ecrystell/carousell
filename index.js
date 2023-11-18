@@ -157,10 +157,16 @@ function createListingsStr(listings) {
 
 //  Compare listings
 function compareListings(array1, array2) {
-  console.log("Array 1 (prevlistings): " + array1);
-  console.log("Array 2 (listings): " + array2);
+
   ids = new Set(array1.map(({ listingID }) => listingID));
+  
+  names1 = new Set(array1.map(({ name }) => name));
+  names2 = new Set(array2.map(({ name }) => name));
+
   array2 = array2.filter(({ listingID }) => !ids.has(listingID));
+
+  console.log("Array 1 (prevlistings): " + names1);
+  console.log("Array 2 (listings): " + names2);
   console.log("Array 2 (listings) after filter: " + array2);
   return array2;
 }
