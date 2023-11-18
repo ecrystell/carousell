@@ -108,7 +108,7 @@ async function loadPage(){
         console.log(dateTime + "\t There is an update!! :)");
         messages = createListingsStr(diffListings);
         //send discord msg
-        for (let i=0; i<diffListings.length;  i++) {
+        for (let i=0; i<messages.length;  i++) {
           client.channels.cache.get(process.env.CHANNEL_ID) 
           .send(json = {
               content: messages[i],
@@ -148,7 +148,7 @@ function createListingsStr(listings) {
     message += listing.name + "\n";
     // message += listing.condition + "\n";
     message += listing.price + "\n";
-    message += listing.itemURL + "\n";
+    message += listing.itemURL;
     messages.push(message);
   });
   //console.log(messages[0]);
@@ -157,8 +157,11 @@ function createListingsStr(listings) {
 
 //  Compare listings
 function compareListings(array1, array2) {
+  console.log("Array 1 (prevlistings): " + array1);
+  console.log("Array 2 (listings): " + array2);
   ids = new Set(array1.map(({ listingID }) => listingID));
   array2 = array2.filter(({ listingID }) => !ids.has(listingID));
+  console.log("Array 2 (listings) after filter: " + array2);
   return array2;
 }
 
