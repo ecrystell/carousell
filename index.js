@@ -14,7 +14,7 @@ var count = 0;
 
 
 const CronJob = require("cron").CronJob;
-const job = new CronJob("*/3 * * * *", createBrowser, false, "Asia/Singapore");
+const job = new CronJob(process.env.SLEEP_TIME, createBrowser, false, "Asia/Singapore");
 
 client.on("ready", () => {
   console.log("I'm in");
@@ -68,24 +68,18 @@ async function loadPage(){
   if (data != undefined) {
     let listings = [];
     let diffListings = [];
-    console.log(data.ProfileListing.listingCards.length);
+    // console.log(data);
     data.ProfileListing.listingCards.forEach((element) => {
+      // console.log(element);
       const name = element.belowFold[0].stringContent;
       const price = element.belowFold[1].stringContent;
-      const condition = element.belowFold[3].stringContent;
       const listingID = element.listingID;
-      const thumbnailURL = element.thumbnailURL;
-      const seller_username =
-        data.Listing.listingsMap[element.listingID].seller.username;
       const itemURL = ("https://sg.carousell.com/p/" + name.replace(/[^a-zA-Z ]/g, "-") + "-" + listingID).replace(/ /g, "-");
 
       listing = {
         name: name,
         price: price,
-        condition: condition,
         listingID: listingID,
-        thumbnailURL: thumbnailURL,
-        seller_username: seller_username,
         itemURL: itemURL
       };
       listings.push(listing)
@@ -137,13 +131,7 @@ function createListingsStr(listings) {
   var messages = [];
   listings.forEach((listing) => {
     var message = "";
-    // message += "Name: " + listing.name + "\n";
-    // message += "Price: " + listing.price + "\n";
-    // message += "Condition: " + listing.condition + "\n";
-    // message += "Seller: " + listing.seller_username + "\n";
-    // message += "Link: " + listing.itemURL + "\n";
-    // message += "Thumbnail: " + listing.thumbnailURL;
-    
+
     // message += listing.thumbnailURL + "\n";
     message += listing.name + "\n";
     // message += listing.condition + "\n";
@@ -158,17 +146,23 @@ function createListingsStr(listings) {
 //  Compare listings
 function compareListings(array1, array2) {
 
-  ids = new Set(array1.map(({ listingID }) => listingID));
-  
-  names1 = new Set(array1.map(({ name }) => name));
-  names2 = new Set(array2.map(({ name }) => name));
 
-  array2 = array2.filter(({ listingID }) => !ids.has(listingID));
+  // ids = new Set(array1.map(({ listingID }) => listingID)); 
+  // array2 = array2.filter(({ listingID }) => !ids.has(listingID));
+  let diff = [];
+  let found = false;
+  let i = 0;
 
-  console.log("Array 1 (prevlistings): " + names1);
-  console.log("Array 2 (listings): " + names2);
-  console.log("Array 2 (listings) after filter: " + array2);
-  return array2;
+  while (!found && i < array2.length) {
+    if (array1[0].listingID == array2[i].listingID) {
+      found = true;
+    } else {
+      diff.push(array2[i]);
+      i++;
+    }
+  }
+
+  return diff;
 }
 
 
