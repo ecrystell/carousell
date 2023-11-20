@@ -73,12 +73,14 @@ async function loadPage(){
       // console.log(element);
       const name = element.belowFold[0].stringContent;
       const price = element.belowFold[1].stringContent;
+      const desc = element.belowFold[2].stringContent;
       const listingID = element.listingID;
       const itemURL = ("https://sg.carousell.com/p/" + name.replace(/[^a-zA-Z ]/g, "-") + "-" + listingID).replace(/ /g, "-");
 
       listing = {
         name: name,
         price: price,
+        desc: desc,
         listingID: listingID,
         itemURL: itemURL
       };
@@ -91,33 +93,46 @@ async function loadPage(){
     });
     dateTime = new Date(asiaTime);
 
-    if (prevListings.length == 0)
-      console.log("Script starting... we populate the listings!");
-    else {
-      diffListings = compareListings(prevListings, listings);
-      if (diffListings.length == 0) {
-        console.log(dateTime + "\t There is no update... :(");
-        
-      } else {
-        console.log(dateTime + "\t There is an update!! :)");
-        messages = createListingsStr(diffListings);
-        //send discord msg
-        for (let i=0; i<messages.length;  i++) {
-          client.channels.cache.get(process.env.CHANNEL_ID) 
-          .send(json = {
-              content: messages[i],
-            });
-          client.channels.cache.get(process.env.TEST_ID) 
-          .send(json = {
-              content: messages[i],
-            });
-          console.log("Sent: "+ messages[i])
-        }
+    let filled = true;
+    for (let i=0; i<listings.length; i++) {
+      if (listings[i].desc == process.env.DEFAULT_CATEGORY) { // if there's any listing with the default category, we assume that details have not been filled in
+        filled = false;
+        break;
       }
     }
+    if (filled) {
+      if (prevListings.length == 0)
+        console.log("Script starting... we populate the listings!");
+      else {
+        diffListings = compareListings(prevListings, listings);
+        if (diffListings.length == 0) {
+          console.log(dateTime + "\t There is no update... :(");
+          
+        } else {
+          console.log(dateTime + "\t There is an update!! :)");
+          messages = createListingsStr(diffListings);
+          //send discord msg
+          for (let i=0; i<messages.length;  i++) {
+            client.channels.cache.get(process.env.CHANNEL_ID) 
+            .send(json = {
+                content: messages[i],
+              });
+            client.channels.cache.get(process.env.TEST_ID) 
+            .send(json = {
+                content: messages[i],
+              });
+            console.log("Sent: "+ messages[i])
+            }
+          } 
 
-    //  Save for comparison later
-    prevListings = listings;
+        }
+          //  Save for comparison later
+        prevListings = listings;       
+    } else {
+      console.log(dateTime + "\t Details not filled in yet");
+    }
+
+
   } else {
     console.log("Error loading page");
   }
@@ -132,9 +147,7 @@ function createListingsStr(listings) {
   listings.forEach((listing) => {
     var message = "";
 
-    // message += listing.thumbnailURL + "\n";
     message += listing.name + "\n";
-    // message += listing.condition + "\n";
     message += listing.price + "\n";
     message += listing.itemURL;
     messages.push(message);
@@ -146,22 +159,22 @@ function createListingsStr(listings) {
 //  Compare listings
 function compareListings(array1, array2) {
 
-
   // ids = new Set(array1.map(({ listingID }) => listingID)); 
   // array2 = array2.filter(({ listingID }) => !ids.has(listingID));
   let diff = [];
   let found = false;
   let i = 0;
 
+
   while (!found && i < array2.length) {
     if (array1[0].listingID == array2[i].listingID) {
+      console.log(array2[i].name)
       found = true;
     } else {
       diff.push(array2[i]);
       i++;
     }
   }
-
   return diff;
 }
 
