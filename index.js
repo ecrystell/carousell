@@ -95,7 +95,7 @@ async function loadPage(){
 
     let filled = true;
     for (let i=0; i<listings.length; i++) {
-      if (listings[i].desc == process.env.DEFAULT_CATEGORY) { // if there's any listing with the default category, we assume that details have not been filled in
+      if (listings[i].desc == process.env.DEFAULT_CATEGORY || listings[i].desc == process.env.ANOTHER_CATEGORY) { // if there's any listing with the default category, we assume that details have not been filled in
         filled = false;
         break;
       }
