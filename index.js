@@ -181,7 +181,7 @@ function compareListings(array1, array2) {
 
 async function createBrowser() {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: "new",
     args: ["--no-sandbox", "--incognito"],
     executablePath: process.env.PUPPETEER_EXECUTABLE_PATH,
   });
