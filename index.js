@@ -57,7 +57,7 @@ async function loadPage(){
 // ``});
 
   var data = JSON.parse(await page.evaluate(
-    () => JSON.stringify(window.initialState)
+    async () => Promise.resolve(JSON.stringify(window.initialState))
   ));
 
   await page.close();
