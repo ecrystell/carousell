@@ -52,13 +52,13 @@ async function loadPage(){
   await page.waitForTimeout(5000);
 
   // var checking;
-//   var data = await page.evaluate(() => {
-//     return window.initialState;
-// ``});
+  var data = await page.evaluate(() => {
+    return window.initialState;
+``});
 
-  var data = JSON.parse(await page.evaluate(
-    async () => Promise.resolve(JSON.stringify(window.initialState))
-  ));
+  // var data = JSON.parse(await page.evaluate(
+  //   async () => Promise.resolve(JSON.stringify(window.initialState))
+  // ));
 
   await page.close();
 
