@@ -32,8 +32,9 @@ async function loadPage(){
   var link = "https://sg.carousell.com/u/" + encodeURIComponent(process.env.USER);
   var page = await context.newPage();
   await page.setUserAgent(
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3419.0 Safari/537.36"
+    //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3419.0 Safari/537.36"
     //"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 OPR/102.0.0.0"
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
   );
   await page.setCacheEnabled(false);
 
@@ -50,20 +51,21 @@ async function loadPage(){
   // Adding a delay of 5 seconds (you might need to adjust this timing)
   await page.waitForTimeout(5000);
 
-
+  // var checking;
   var data = await page.evaluate(() => {
   try {
     // Logging the window.initialState for debugging purposes
-    console.log(window.initialState);
+    // checking = window.initialState;
     return window.initialState;
   } catch (error) {
     console.error(error);
-    return null;
+    return error;
   }
 });
 
   await page.close();
 
+  console.log(data);
 
   if (data != undefined) {
     let listings = [];
