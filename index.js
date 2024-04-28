@@ -52,20 +52,17 @@ async function loadPage(){
   await page.waitForTimeout(5000);
 
   // var checking;
-  var data = await page.evaluate(() => {
-  try {
-    // Logging the window.initialState for debugging purposes
-    // checking = window.initialState;
-    return window.initialState;
-  } catch (error) {
-    console.error(error);
-    return error;
-  }
-});
+//   var data = await page.evaluate(() => {
+//     return window.initialState;
+// ``});
+
+  var data = JSON.parse(await page.evaluate(
+    () => JSON.stringify(window.initialState)
+  ));
 
   await page.close();
 
-  console.log(data);
+  //console.log(data);
 
   if (data != undefined) {
     let listings = [];
