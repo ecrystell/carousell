@@ -8,6 +8,8 @@ const client = new Client({
 });
 
 const puppeteer = require("puppeteer");
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+puppeteer.use(StealthPlugin())
 let prevListings = [];
 let context;
 var count = 0;
